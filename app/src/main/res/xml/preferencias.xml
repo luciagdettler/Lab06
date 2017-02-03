@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <EditTextPrefences
+        android:key= "opcNombre"
+        android:title="Nombre de Usuario"
+        android:summary= "Identifica al usuario de la app"
+        android:dialogTitle="Introduce tu nombre"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:defaultValue=""/>
+
+    <EditTextPrefences
+        android:key= "opcEmail"
+        android:title="Email"
+        android:summary= "Identifica al email del usuario de la app"
+        android:dialogTitle="Introduce tu email"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:defaultValue=""/>
+
+    <RingtonePreference
+        android:name="Ringtone Preference"
+        android:summary="Select a ringtone"
+        android:title="Ringtones"
+        android:key="ringtonePref"
+        android:ringtoneType="notification"
+        android:defaultValue="content://settings/system/notification_sound" />
+
+</PreferenceScreen>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,38 +16,54 @@
             android:textAlignment="center" />
 
         <TextView
-            android:text="Minutos de desvíos"
-            android:layout_width="match_parent"
+            android:text="Minutos de desvío:"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView_Tarea_MinutosDesvio"
+            android:id="@+id/tv"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_alignBottom="@+id/editText_MinutosDesvio"
+            android:layout_alignParentStart="true" />
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:id="@+id/editText_Tarea_MinutosDesvio"
-            android:hint="cantidad de minutos de desvíos"
-            android:inputType="numberDecimal" />
+            android:id="@+id/editText_MinutosDesvio"
+            android:inputType="numberDecimal"
+            android:layout_alignBottom="@+id/linearLayout"
+            android:layout_toEndOf="@+id/tv"
+            android:layout_marginStart="48dp" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_Tarea_Titulo"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="36dp"
+            android:id="@+id/linearLayout">
 
-            <TextView
-                android:text="Tarea Terminada"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView_Tarea_Finalizada"
-                android:layout_weight="0.07" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_Tarea_Finalizada"
-                android:layout_weight="1" />
         </LinearLayout>
 
-    </LinearLayout>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox_Tarea_Finalizada"
+        android:layout_weight="1"
+        android:layout_marginEnd="72dp"
+        android:layout_alignTop="@+id/textView_Tarea_Finalizada"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Tarea Terminada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_Tarea_Finalizada"
+        android:layout_weight="0.07"
+        android:layout_marginTop="90dp"
+        android:layout_below="@+id/textView_Tarea_Titulo"
+        android:layout_toStartOf="@+id/checkBox_Tarea_Finalizada"
+        android:layout_marginEnd="34dp" />
+
+</RelativeLayout>

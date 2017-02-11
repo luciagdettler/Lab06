@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AltaTareaActivity"></activity>
+        <activity android:name=".BuscarTareas"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>

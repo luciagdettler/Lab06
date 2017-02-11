@@ -103,7 +103,26 @@ public class ProyectoDAO {
         db.close();
     }
 
-
+    public List<Tarea> listarDesviosPlanificacion(Boolean soloTerminadas,Integer desvioMaximoMinutos){
+        // retorna una lista de todas las tareas que tardaron más (en exceso) o menos (por defecto)
+        // que el tiempo planificado.
+        // si la bandera soloTerminadas es true, se busca en las tareas terminadas, sino en todas.
+        List<Tarea> listatarea = listarTareas(1);
+        List<Tarea> listaretorno = new ArrayList<Tarea>();
+        for(Tarea i:listatarea){
+            if(!soloTerminadas) {
+                if (Math.abs(i.getMinutosTrabajados() - i.getHorasEstimadas() * 60) < desvioMaximoMinutos)
+                    listaretorno.add(i);
+            }
+            else{
+                if(i.getFinalizada())
+                    if (Math.abs(i.getMinutosTrabajados() - i.getHorasEstimadas() * 60) < desvioMaximoMinutos)
+                        listaretorno.add(i);
+            }
+        }
+        Log.i("Result","Entró");
+        return listaretorno;
+    }
 
     public void borrarTarea(Tarea t){
         open(true);
@@ -157,9 +176,6 @@ public class ProyectoDAO {
 
     }
 
-
-
-
     public void finalizar(Integer idTarea){
         //Establecemos los campos-valores a actualizar
         ContentValues valores = new ContentValues();
@@ -168,12 +184,6 @@ public class ProyectoDAO {
         mydb.update(ProyectoDBMetadata.TABLA_TAREAS, valores, "_id=?", new String[]{idTarea.toString()});
     }
 
-    public List<Tarea> listarDesviosPlanificacion(Boolean soloTerminadas,Integer desvioMaximoMinutos){
-        // retorna una lista de todas las tareas que tardaron más (en exceso) o menos (por defecto)
-        // que el tiempo planificado.
-        // si la bandera soloTerminadas es true, se busca en las tareas terminadas, sino en todas.
-        return null;
-    }
 
 
     public Proyecto buscarProyecto(int ID) {
@@ -233,24 +243,6 @@ public class ProyectoDAO {
         List<Tarea> listaTarea = new ArrayList<Tarea>();
         if(cursorListarDB.moveToFirst())
             do{
-                /*
-                Log.i("Prueba",cursorListarDB.getString(0)); //IDENTIFICADOR
-                Log.i("Prueba",cursorListarDB.getString(1)); //DESCRIPCION
-                Log.i("Prueba",cursorListarDB.getString(2)); //HORAS_PLANIFICADAS
-                Log.i("Prueba",cursorListarDB.getString(3)); //MINUTOS_TRABAJDOS
-                Log.i("Prueba",cursorListarDB.getString(4)); //FINALIZADA
-                Log.i("Prueba",cursorListarDB.getString(5)); //ID_RESPONSABLE
-                Log.i("Prueba",cursorListarDB.getString(6)); //ID_PRIORIDAD
-                Log.i("Prueba",cursorListarDB.getString(7)); //ID_Proyecto*/
-                /*Tarea nuevo = new Tarea(
-                        Integer.parseInt(cursorListarDB.getString(0)),
-                        Integer.parseInt(cursorListarDB.getString(2)),
-                        Integer.parseInt(cursorListarDB.getString(3)),
-                        Boolean.parseBoolean(cursorListarDB.getString(7)),
-                        buscarProyecto(Integer.parseInt(cursorListarDB.getString(6))),
-                        buscarPrioridad(Integer.parseInt(cursorListarDB.getString(4))),
-                        buscarUsuario(Integer.parseInt(cursorListarDB.getString(5))));
-                nuevo.setDescripcion(cursorListarDB.getString(1));*/
                 Tarea nuevo = new Tarea();
                 nuevo.setId(Integer.parseInt(cursorListarDB.getString(0)));
                 nuevo.setDescripcion(cursorListarDB.getString(1));

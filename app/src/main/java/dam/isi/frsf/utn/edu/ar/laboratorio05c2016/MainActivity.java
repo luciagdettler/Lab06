@@ -1,14 +1,20 @@
 package dam.isi.frsf.utn.edu.ar.laboratorio05c2016;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import dam.isi.frsf.utn.edu.ar.laboratorio05c2016.dao.ProyectoDAO;
@@ -23,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
+       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -82,9 +88,39 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if(id == R.id.buscar_tarea){
+            LayoutInflater inflater = getLayoutInflater();
+            final View dialoglayout = inflater.inflate(R.layout.content_busqueda_tarea, null);
+            final EditText editText_MinutosDesvio = (EditText) dialoglayout.findViewById(R.id.editText_MinutosDesvio);
+            final CheckBox checkBox_TareaTerminada = (CheckBox) dialoglayout.findViewById(R.id.checkBox_Tarea_Finalizada);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setView(dialoglayout);
+
+            builder.setView(dialoglayout)
+                    .setPositiveButton("Buscar",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent i = new Intent(MainActivity.this,BuscarTareas.class);
+                                    i.putExtra("Finalizada",checkBox_TareaTerminada.isChecked());
+                                    i.putExtra("Minutos",editText_MinutosDesvio.getText().toString());
+                                    startActivity(i);
+
+
+                                }
+                            })
+                    .setNegativeButton("Cancelar",
+                            null
+                    );
+
+            builder.create().show();
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data){

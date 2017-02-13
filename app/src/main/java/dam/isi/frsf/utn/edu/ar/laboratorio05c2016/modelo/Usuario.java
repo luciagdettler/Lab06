@@ -1,5 +1,12 @@
 package dam.isi.frsf.utn.edu.ar.laboratorio05c2016.modelo;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import dam.isi.frsf.utn.edu.ar.laboratorio05c2016.apiRest.ProyectoDBApiRestMetaData;
+
 /**
  * Created by mdominguez on 06/10/16.
  */
@@ -33,6 +40,12 @@ public class Usuario {
         return nombre;
     }
 
+
+
+
+
+
+
     public void setNombre(String nombre) {
 
         this.nombre = nombre;
@@ -51,5 +64,28 @@ public class Usuario {
     @Override
     public String toString() {
         return nombre;
+    }
+
+
+    public Usuario(JSONObject jsonObject) {
+        try {
+            id = jsonObject.getInt(ProyectoDBApiRestMetaData.TablaUsuarioMetaData.ID);
+            nombre = jsonObject.getString(ProyectoDBApiRestMetaData.TablaUsuarioMetaData.NOMBRE);
+            correoElectronico = jsonObject.getString(ProyectoDBApiRestMetaData.TablaUsuarioMetaData.CORREOELECTRONICO);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public JSONObject toJSON() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(ProyectoDBApiRestMetaData.TablaUsuarioMetaData.NOMBRE, nombre);
+            jsonObject.put(ProyectoDBApiRestMetaData.TablaUsuarioMetaData.CORREOELECTRONICO, correoElectronico);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.i("JSON-USUARIO: ",jsonObject.toString());
+        return jsonObject;
     }
 }

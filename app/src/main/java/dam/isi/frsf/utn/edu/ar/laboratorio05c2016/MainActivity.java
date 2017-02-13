@@ -17,7 +17,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.util.List;
+
+import dam.isi.frsf.utn.edu.ar.laboratorio05c2016.apiRest.TareaApiRest;
 import dam.isi.frsf.utn.edu.ar.laboratorio05c2016.dao.ProyectoDAO;
+import dam.isi.frsf.utn.edu.ar.laboratorio05c2016.modelo.Tarea;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ProyectoDAO proyectoDAO;
     private Cursor cursor;
     private TareaCursorAdapter tca;
+    private TareaCursorAdapter tcaApi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +60,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d("LAB05-MAIN","mediol "+cursor.getCount());
 
         tca = new TareaCursorAdapter(MainActivity.this,cursor,proyectoDAO);
+
+        List<Tarea> tareas = new TareaApiRest().listar();
+        tcaApi = new TareaCursorAdapter(MainActivity.this,tareas);
+
+
+        lvTareas.setAdapter(tca);
+
+
+
+
+
         lvTareas.setAdapter(tca);
         Log.d("LAB05-MAIN","fin resume");
     }

@@ -1,5 +1,12 @@
 package dam.isi.frsf.utn.edu.ar.laboratorio05c2016.modelo;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import dam.isi.frsf.utn.edu.ar.laboratorio05c2016.apiRest.ProyectoDBApiRestMetaData;
+
 /**
  * Created by mdominguez on 06/10/16.
  */
@@ -38,6 +45,24 @@ public class Prioridad {
     @Override
     public String toString() {
         return prioridad;
+    }
+    public Prioridad(JSONObject jsonObject) {
+        try {
+            id = jsonObject.getInt(ProyectoDBApiRestMetaData.TablaPrioridadMetaData.ID);
+            prioridad = jsonObject.getString(ProyectoDBApiRestMetaData.TablaPrioridadMetaData.PRIORIDAD);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public JSONObject toJSON() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(ProyectoDBApiRestMetaData.TablaPrioridadMetaData.PRIORIDAD,prioridad);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.i("JSON-PRIORIDAD: ",jsonObject.toString());
+        return jsonObject;
     }
 }
 
